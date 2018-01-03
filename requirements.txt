@@ -1,0 +1,11 @@
+Django==1.10
+Pillow==4.2.1
+sorl-thumbnail==12.3
+django-cors-headers==2.1.0
+djangorestframework==3.7.1
+django-mptt==0.8.7
+django-simple-captcha==0.5.5
+social-auth-app-django==2.0.0
+django-mail-templated==2.6.5
+celery-with-redis==3.0
+django-celery==3.2.2

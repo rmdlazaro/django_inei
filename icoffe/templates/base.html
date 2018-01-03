@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title> {% block titulo %} Titulo de la pagina {% endblock %} </title>
+	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+	<link href="/media/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/media/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+    <script src="/media/bootstrap/js/bootstrap.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <style type="text/css">
+		body {
+		padding-top: 80px;
+		}
+		#list-prod{
+		display: none;
+		}
+
+		.sidebar-nav {
+		padding: 9px 0;
+		}
+
+		.span3 img{width:160px;
+		height: 140px;
+		}
+    </style>
+
+    <script type="text/javascript">
+
+         $(function(){
+       			$.ajax({
+       				type:"GET",
+       				contentType:"application/json; charset=utf-8",
+       				dateType:"json",
+       				url:"/ws/productos/",
+       				success:function(response){
+       					var i = (response.length-1)-5;
+       					for (i;i<=(response.length-1);i++){
+       						$('#ProductosNuevos').append("<li>"+response[i].fields.nombre+"</li>",
+       							// "<li><img src='"+response[i].fields.imagen+"'></li>");
+       						"<li><img src='/media/"+response[i].fields.imagen+"'></li>");
+       					}
+       				}
+
+       			});//end ajax
+
+         });//end document ready
+    </script>
+
+</head>
+	<body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+        	<div class="navbar-inner">
+        		<div class="container-fluid">
+        			<a href="" class="brand"><img src="/media/images/logo.png" alt=""></a>
+        			{% if user.is_authenticated %}
+		            <p class="navbar-text pull-right">
+		              <i class="icon-user icon-white"></i>  {{ user.username }}
+		            </p>
+		            {% endif %}
+					<nav>
+						<ul class="nav">
+							<li><a href="{% url "inicio" %}"><i class="icon-home icon-white"></i> Home</a></li>
+                            <a href="{% url "matriculas:inicio" %}"><i class="icon-th icon-white"></i> Módulo de Matrícula</a></li>
+                        {% comment %}
+						<li>
+						 	<li><a href="{% url "vista_acerca" %}"><i class="icon-briefcase icon-white"></i> Nosotros</a></li>
+						 	<li><a href="{% url "vista_contacto" %}"><i class="icon-envelope icon-white"></i> Contacto</a></li>
+						{% endcomment %}
+							{% if user.is_authenticated %}
+							<li><a href="{% url "inicio" %}"><i class="icon-off icon-white"></i> Cerrar</a></li>
+							{% else %}
+			                <li><a href="{% url "inicio" %}"><i class="icon-off icon-white"></i> Entrar </a></li>
+                            {% endif %}
+		                </ul>
+					</nav>
+
+        		</div>
+        	</div>
+        </div>
+
+		<div class="container-fluid">
+	      	<div class="row-fluid">
+	        	<div class="span9">
+	            		{% block contenido %}
+	            		{% endblock contenido %}
+	        	</div><!--/span-->
+            {% comment %}
+	        	<div class="span3">
+		         <div class="well sidebar-nav">
+		            <ul class="nav nav-list">
+		              <li class="nav-header">Mi Carrito</li>
+		              <br><p align="justify">
+		               Carrito de Super
+		              </p>
+		            </ul>
+		          </div><!--/.well -->
+		          <div class="well sidebar-nav">
+		            <ul class="nav nav-list" id="ProductosNuevos">
+		              <li class="nav-header">Nuevos Productos</li>
+		              <br><p align="justify">
+
+		              </p>
+		            </ul>
+		         </div><!--/.well -->
+                </div>
+            {% endcomment %}
+      		</div>{# end row #}
+      	</div>{# end row #}
+      	{%	block paginacion %}
+		{%endblock%}
+      	{%	block pie_pagina %}
+	      	 <footer>
+	      		<p> Universidad ABC </p>
+	  		 </footer>
+		{%endblock%}
+
+		{% block script %}
+		{% endblock %}
+
+	</body>
+</html>

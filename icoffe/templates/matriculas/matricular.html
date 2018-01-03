@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+
+{% block titulo%}Matricula del alumno{% endblock %}
+
+{% block contenido %}
+<div class="row">
+    <div class="col-md-12">
+        <form action="{% url 'matriculas:matricular' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Matricular" />
+        </form>
+    </div>
+</div>
+{% endblock %}

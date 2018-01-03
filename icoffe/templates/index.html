@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block titulo%}Página de inicio{% endblock %}
+
+{% block contenido %}
+	<h2>Inicio</h2>
+
+{% if user.is_authenticated %}
+    {% if user.get_profile.photo %}
+           <img src="/media/{{ user.get_profile.photo }}" width="200px" heigth="200px" class="img-polaroid"/>
+    {% endif %}
+    {% if user.get_profile.telefono %}
+                  <p><strong>Numero Tel:</strong> {{ user.get_profile.telefono }}</p>
+    {% endif %}
+    <h4>Bienvenido {{ user.username }}</h4>
+{% endif %}
+
+{% endblock %}

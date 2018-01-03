@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block titulo%}Módulo de Matricula{% endblock %}
+
+{% block contenido %}
+	<h2>Módulo de Matricula</h2>
+    <ul class="nav">
+	    <li><a href="{% url "matriculas:matricular" %}"> Matricular</a></li>
+        <li><a href="{% url "matriculas:listar" %}"> Matriculados</a></li>
+    </ul>
+{% endblock %}
